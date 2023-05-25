@@ -1,0 +1,90 @@
+---
+import Footer from '../components/layout/Footer';
+import Navigation from '../components/layout/Navigation'
+import NavigationModal from '../components/layout/NavigationModal';
+export interface Props {
+	title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link
+          rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+    />
+		<meta name="generator" content={Astro.generator} />
+		<title>{title}</title>
+	</head>
+	<body class="bg-white text-black antialiased dark:bg-gray-900 dark:text-white">
+		<div class="flex h-full w-full flex-col justify-between px-4 sm:px-6 xl:max-w-5xl xl:px-0">
+      <header class="flex w-full items-center justify-between p-8">
+        <div class="flex">
+          <a href="/">
+            <div class="flex items-center justify-between">
+              <div class="mr-3">
+                <img
+                  src="/images/logo.svg"
+                  alt="Page logo"
+                  width={54}
+                  height={44}
+                />
+              </div>
+            </div>
+          </a>
+        </div>
+        <div class="flex items-center text-base leading-5">
+          <Navigation />
+          <NavigationModal client:media="(max-width: 640px)" />
+        </div>
+      </header>
+      <main class="flex w-full flex-1 flex-col items-center justify-center px-20 text-center">
+        <slot />
+      </main>
+      <Footer />
+    </div>
+	</body>
+</html>
+<style is:global>
+:root, html, body {
+	min-width: 100%;
+	min-height: 100%;
+	display: flex;
+	align-items: stretch;
+	justify-content: center;
+	overflow-x: hidden;
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+	.btn {
+		@apply inline-flex items-center justify-center rounded-md border border-gray-400 bg-transparent py-3 px-6 text-center text-base font-medium leading-snug text-gray-700 shadow-md transition duration-200 ease-in hover:border-gray-600 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-blue-200 dark:border-slate-500 dark:text-slate-300 dark:hover:border-slate-800 dark:hover:bg-slate-800 md:px-8;
+	}
+
+	.btn-ghost {
+		@apply border-none text-gray-600 shadow-none hover:text-gray-900 dark:text-gray-400 dark:hover:text-white;
+	}
+
+	.btn-primary {
+		@apply border-blue-600 bg-blue-600 font-semibold text-white hover:border-blue-800 hover:bg-blue-800 hover:text-white dark:border-blue-700 dark:bg-blue-700 dark:text-white dark:hover:border-blue-900 dark:hover:bg-blue-900;
+	}
+}
+
+main > astro-slot {
+	display: flex;
+	width: 100%;
+	align-items: center;
+	justify-content: center;
+	flex-flow: column;
+}
+
+</style>

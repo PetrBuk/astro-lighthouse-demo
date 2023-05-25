@@ -1,0 +1,19 @@
+---
+import PostsList from '../../components/blog/PostsList';
+import Layout from '../../layouts/Layout.astro';
+
+const res = await fetch('https://dummyjson.com/posts?limit=200');
+const data = await res.json();
+const posts = data.posts;
+---
+
+<Layout title="Blog">
+  <div class="flex flex-col items-center justify-center py-2 text-left">
+      <div class="block w-full rounded-lg rounded-b-none border border-gray-200 bg-white p-6 shadow dark:border-gray-700 dark:bg-gray-800">
+        <h5 class="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+          Seznam nejnovějších příspěvků z dummyjson.com
+        </h5>
+      </div>
+      <PostsList client:load posts={posts} />
+    </div>
+</Layout>
